@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">RealEstateApp</string>
+    <string name="discover_your_home">Discover your home</string>
+    <string name="find_affordable_house_in_kigali_and_connect_directly_with_owners">Find affordable house in Kigali and connect directly with owners</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="not_an_existing_user">Not an existing user?</string>
+    <string name="create_an_account">create an account</string>
+    <string name="login">Login</string>
+    <string name="password">password</string>
+    <string name="email">Email</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_account">Create Account</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="gender">Gender</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="success">Success</string>
+    <string name="tags">Tags</string>
+    <string name="history">History</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="real_estate_app">Real Estate App</string>
+    <string name="use_my_location">Use my location</string>
+    <string name="my_tags">My Tags</string>
+    <string name="my_searches">My Searches</string>
+</resources>
