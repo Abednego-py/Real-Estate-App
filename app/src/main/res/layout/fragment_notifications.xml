@@ -24,11 +24,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyler_list"
-        android:layout_width="377dp"
+        android:layout_width="match_parent"
         android:layout_height="572dp"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="15dp"
+        android:layout_margin="15dp"
         android:orientation="vertical"
         android:textAlignment="center"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

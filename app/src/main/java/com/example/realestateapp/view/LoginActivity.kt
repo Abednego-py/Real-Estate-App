@@ -1,13 +1,14 @@
 package com.example.realestateapp.view
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.example.realestateapp.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.realestateapp.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -30,8 +31,16 @@ class LoginActivity : AppCompatActivity() {
         val loading = binding.idPBLoading
         auth = Firebase.auth
 
+        fun showLoader() {
+                loading.visibility = View.VISIBLE
+        }
+
+        fun stopLoader(){
+            loading.visibility = View.INVISIBLE
+        }
+
         binding.loginUser.setOnClickListener {
-            loading.visibility = View.VISIBLE
+            showLoader()
             if (isEntryValid(email.text.toString()) && isEntryValid(password.text.toString())) {
                 email.error = "Please include your credentials"
                 password.error = "Please include your credentials"
@@ -68,13 +77,18 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
             }
-            loading.visibility = View.GONE
+            stopLoader()
         }
 
         binding.createaccount.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        return super.onCreateView(name, context, attrs)
+
     }
 
     override fun onBackPressed() {

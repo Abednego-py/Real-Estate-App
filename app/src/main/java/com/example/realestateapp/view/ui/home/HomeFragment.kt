@@ -5,18 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import com.example.realestateapp.R
 import com.example.realestateapp.databinding.FragmentHomeBinding
 import com.example.realestateapp.model.CellClickListener
 import com.example.realestateapp.model.Datasource
 import com.example.realestateapp.model.Home
 import com.example.realestateapp.model.recycler.HomeAdapter
+import com.example.realestateapp.model.recycler.SearchAdapter
+import com.example.realestateapp.model.search.data.SearchApplication
+import com.example.realestateapp.model.search.data.SearchDatabase
+import com.example.realestateapp.model.search.data.SearchItems
 import com.example.realestateapp.model.tagClickListener
+import com.example.realestateapp.viewmodels.SearchItemViewModel
+import com.example.realestateapp.viewmodels.SearchViewModelFactory
 import kotlinx.android.synthetic.main.item_layout.view.*
 
 
@@ -27,6 +34,16 @@ class HomeFragment : Fragment() , CellClickListener, tagClickListener {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private lateinit var searchAdapter : SearchAdapter
+
+    private val viewModel: SearchItemViewModel by activityViewModels {
+        SearchViewModelFactory(
+            (activity?.application as SearchApplication).database
+                .searchDao()
+        )
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,10 +64,6 @@ class HomeFragment : Fragment() , CellClickListener, tagClickListener {
 
         recyclerView.setHasFixedSize(true)
 
-//        val textView: TextView = binding.textHome
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
 
         return root
     }
@@ -58,12 +71,25 @@ class HomeFragment : Fragment() , CellClickListener, tagClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val db = Room.databaseBuilder(
+            requireContext(),
+            SearchDatabase::class.java, "search_database"
+        ).build()
+
         binding.textView14.setOnClickListener {
             val action = HomeFragmentDirections.actionNavigationHomeToListFragment()
             this.findNavController().navigate(action)
         }
         binding.searchHome.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                val searchitem = SearchItems(searchText = query)
+
+                searchitem.searchText?.let { viewModel.addNewSearchItem(it) }
+//                val searchDao = db.searchDao()
+//
+//                lifecycleScope.launch {
+//                    searchDao.create(searchitem)
+//                }
                 // on below line we are checking
                 // if query exist or not.
 //                if (programmingLanguagesList.contains(query)) {

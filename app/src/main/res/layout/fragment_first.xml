@@ -158,6 +158,7 @@
         android:backgroundTint="#0B0A0A"
         android:gravity="center|center_horizontal"
         android:text="Next"
+        android:textColor="@color/white"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.534"

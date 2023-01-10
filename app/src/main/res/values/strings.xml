@@ -35,4 +35,6 @@
     <string name="use_my_location">Use my location</string>
     <string name="my_tags">My Tags</string>
     <string name="my_searches">My Searches</string>
+    <string name="recommended_for_you">Recommended for you</string>
+    <string name="see_all">See all</string>
 </resources>

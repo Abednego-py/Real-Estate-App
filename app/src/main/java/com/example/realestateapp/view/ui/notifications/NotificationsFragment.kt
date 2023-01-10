@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import com.example.realestateapp.databinding.FragmentNotificationsBinding
-import com.example.realestateapp.model.Datasource
-import com.example.realestateapp.model.DemoSearchData
-import com.example.realestateapp.model.recycler.HomeAdapter
 import com.example.realestateapp.model.recycler.SearchAdapter
-import kotlinx.android.synthetic.main.activity_login.*
+import com.example.realestateapp.model.search.data.SearchApplication
+import com.example.realestateapp.viewmodels.SearchItemViewModel
+import com.example.realestateapp.viewmodels.SearchViewModelFactory
 
 
 class NotificationsFragment : Fragment() {
@@ -23,6 +21,16 @@ class NotificationsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var searchAdapter : SearchAdapter
+
+    private val viewModel: SearchItemViewModel by activityViewModels {
+        SearchViewModelFactory(
+            (activity?.application as SearchApplication).database
+                .searchDao()
+        )
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,13 +39,25 @@ class NotificationsFragment : Fragment() {
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val myDataset = DemoSearchData().loadText()
+
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        searchAdapter = SearchAdapter()
 
         val recyclerView = binding.recylerList
-        recyclerView.adapter = SearchAdapter(myDataset)
-
+        recyclerView.adapter = searchAdapter
         recyclerView.setHasFixedSize(true)
-        return root
+
+        // Attach an observer on the allItems list to update the UI automatically when the data
+        // changes.
+        viewModel.allSearchItems.observe(viewLifecycleOwner){
+            searchAdapter.submitList(it)
+        }
+
     }
 
     override fun onDestroyView() {
